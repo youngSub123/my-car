@@ -1,0 +1,20 @@
+:root {
+  --color-bg: #0f1115;
+  --color-surface: #171a21;
+  --color-surface-alt: #1e222b;
+  --color-border: #2a2f3a;
+  --color-text: #e6e8ec;
+  --color-text-muted: #8b94a3;
+  --color-accent: #18e0a6;
+  --color-accent-soft: rgba(24, 224, 166, 0.15);
+  --color-warning: #f5a623;
+  --color-danger: #f0596b;
+
+  font-family:
+    'Pretendard',
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  color-scheme: dark;
+}
