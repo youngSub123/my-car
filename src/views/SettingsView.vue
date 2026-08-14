@@ -1,8 +1,15 @@
 <script setup>
 import { reactive, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { useVehicleStore } from '@/stores/useVehicleStore'
+import { useKiaStore } from '@/stores/useKiaStore'
 
 const vehicle = useVehicleStore()
+const kia = useKiaStore()
+const route = useRoute()
+
+const kiaConnected = route.query.kia_connected === '1'
+const kiaError = route.query.kia_error
 
 const form = reactive({
   carModel: vehicle.carModel,
@@ -11,6 +18,7 @@ const form = reactive({
   lastAccidentDate: vehicle.lastAccidentDate,
   insuranceStart: vehicle.insuranceStart,
   insuranceEnd: vehicle.insuranceEnd,
+  inspectionExpiry: vehicle.inspectionExpiry,
 })
 
 const errorMessage = ref('')
@@ -66,11 +74,25 @@ function save() {
         </label>
       </div>
 
+      <label class="field">
+        <span>자동차 정기검사 만료일</span>
+        <input v-model="form.inspectionExpiry" type="date" />
+      </label>
+
       <p v-if="errorMessage" class="error-text">{{ errorMessage }}</p>
 
       <div class="actions">
         <button class="btn-primary" @click="save">저장</button>
       </div>
+    </div>
+
+    <div class="card kia-card">
+      <p class="card-title">기아 커넥트 연동</p>
+
+      <p v-if="kiaConnected" class="status-text success">연동이 완료됐어요. 대시보드에서 주행 가능 거리를 확인해보세요.</p>
+      <p v-else-if="kiaError" class="status-text error-text">연동 중 오류가 발생했어요: {{ kiaError }}</p>
+
+      <button class="btn-primary" @click="kia.startConnect">기아 커넥트 연동하기</button>
     </div>
   </div>
 </template>
@@ -121,6 +143,21 @@ function save() {
 .error-text {
   color: var(--color-danger);
   font-size: 13px;
+}
+
+.kia-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.status-text {
+  font-size: 13px;
+}
+
+.status-text.success {
+  color: var(--color-accent);
 }
 
 @media (max-width: 480px) {

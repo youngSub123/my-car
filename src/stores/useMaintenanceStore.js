@@ -4,6 +4,7 @@ import { useVehicleStore } from './useVehicleStore'
 
 const DUE_SOON_THRESHOLD_KM = 500
 const INSURANCE_DUE_SOON_DAYS = 30
+const INSPECTION_DUE_SOON_DAYS = 30
 
 export const MAINTENANCE_CATEGORIES = ['엔진오일', '타이어', '브레이크', '배터리', '냉각수', '기타']
 
@@ -47,6 +48,13 @@ export const useMaintenanceStore = defineStore('maintenance', {
       const vehicle = useVehicleStore()
       const days = vehicle.daysUntilInsuranceExpiry
       if (days == null || days > INSURANCE_DUE_SOON_DAYS) return null
+      return { days }
+    },
+
+    inspectionAlert() {
+      const vehicle = useVehicleStore()
+      const days = vehicle.daysUntilInspectionExpiry
+      if (days == null || days > INSPECTION_DUE_SOON_DAYS) return null
       return { days }
     },
 

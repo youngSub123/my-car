@@ -4,6 +4,7 @@ import { useVehicleStore } from '@/stores/useVehicleStore'
 import AccidentFreeWidget from '@/components/dashboard/AccidentFreeWidget.vue'
 import AlertWidget from '@/components/dashboard/AlertWidget.vue'
 import CostChartWidget from '@/components/dashboard/CostChartWidget.vue'
+import KiaRangeWidget from '@/components/dashboard/KiaRangeWidget.vue'
 
 const vehicle = useVehicleStore()
 
@@ -45,6 +46,7 @@ function saveMileage() {
 
     <section class="widgets">
       <AccidentFreeWidget />
+      <KiaRangeWidget />
       <AlertWidget />
       <CostChartWidget class="span-2" />
     </section>

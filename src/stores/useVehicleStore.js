@@ -10,6 +10,7 @@ function mapVehicle(row) {
     lastAccidentDate: row.last_accident_date,
     insuranceStart: row.insurance_start,
     insuranceEnd: row.insurance_end,
+    inspectionExpiry: row.inspection_expiry,
   }
 }
 
@@ -22,6 +23,7 @@ export const useVehicleStore = defineStore('vehicle', {
     lastAccidentDate: null,
     insuranceStart: null,
     insuranceEnd: null,
+    inspectionExpiry: null,
     isLoading: false,
     error: null,
   }),
@@ -36,6 +38,12 @@ export const useVehicleStore = defineStore('vehicle', {
     daysUntilInsuranceExpiry(state) {
       if (!state.insuranceEnd) return null
       const diffMs = new Date(state.insuranceEnd).getTime() - Date.now()
+      return Math.ceil(diffMs / (1000 * 60 * 60 * 24))
+    },
+
+    daysUntilInspectionExpiry(state) {
+      if (!state.inspectionExpiry) return null
+      const diffMs = new Date(state.inspectionExpiry).getTime() - Date.now()
       return Math.ceil(diffMs / (1000 * 60 * 60 * 24))
     },
   },
@@ -75,6 +83,7 @@ export const useVehicleStore = defineStore('vehicle', {
           last_accident_date: this.lastAccidentDate,
           insurance_start: this.insuranceStart,
           insurance_end: this.insuranceEnd,
+          inspection_expiry: this.inspectionExpiry,
         })
         .eq('id', this.id)
 

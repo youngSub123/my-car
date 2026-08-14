@@ -19,6 +19,11 @@ const router = createRouter({
       component: () => import('@/views/SettingsView.vue'),
     },
     {
+      path: '/kia/callback',
+      name: 'kia-callback',
+      component: () => import('@/views/KiaCallbackView.vue'),
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: () => import('@/views/NotFoundView.vue'),

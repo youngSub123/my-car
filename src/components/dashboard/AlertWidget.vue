@@ -23,6 +23,16 @@ const alerts = computed(() => {
     })
   }
 
+  if (maintenance.inspectionAlert) {
+    list.push({
+      key: 'inspection',
+      text:
+        maintenance.inspectionAlert.days <= 0
+          ? '자동차 정기검사 기한이 지났습니다. 서둘러 검사를 받으세요.'
+          : `자동차 정기검사 기한이 ${maintenance.inspectionAlert.days}일 남았습니다.`,
+    })
+  }
+
   return list
 })
 </script>
